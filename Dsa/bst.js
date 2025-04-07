@@ -157,12 +157,12 @@ class Bst{
 
 let bst=new Bst()
 
-bst.insert(30)
-bst.insert(20)
 bst.insert(10)
+bst.insert(20)
+bst.insert(30)
 bst.insert(40)
 bst.insert(50)
-let node=bst.findlargest(3)
+let node=bst.findlargest(5)
 console.log(node.val)
 // bst.deleteNode(10,bst.root)
 console.log(JSON.stringify(bst.root))
