@@ -152,6 +152,26 @@ class Bst{
         travisol(curr);
         return res;
     }
+
+    countLeafNode(node=this.root){
+       if(!node)return 0
+
+       if(!node.left&&!node.right)return 1
+
+       return this.countLeafNode(node.left)+this.countLeafNode(node.right)
+
+       
+    }
+
+    countNode(node=this.root){
+        if(!node)return 0
+       let count=0
+       if((node.left&&!node.right)||(node.right&&!node.left)){
+        count=1
+       }
+
+       return count+ this.countNode(node.left)+this.countNode(node.right) 
+    }
 }
 
 
@@ -163,6 +183,6 @@ bst.insert(30)
 bst.insert(40)
 bst.insert(50)
 let node=bst.findlargest(5)
-console.log(node.val)
+console.log(bst.countNode())
 // bst.deleteNode(10,bst.root)
-console.log(JSON.stringify(bst.root))
+// console.log(JSON.stringify(bst.root))

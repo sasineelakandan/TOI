@@ -119,6 +119,24 @@ class Linkedlist{
         
      }
 
+     bubbleSort(){
+        let swap
+        
+       do{
+         let swap=false
+         let curr=this.head
+         while(curr&&curr.next){
+            if(curr.val>curr.next.val){
+                let temp=curr.val
+                curr.val=curr.next.val
+                curr.next.val=temp
+                swap=true
+            }
+            curr=curr.next
+         }
+       }while(swap)
+     }
+
 
 }
 
@@ -126,11 +144,11 @@ class Linkedlist{
 const list=new Linkedlist()
 const list1=new Linkedlist()
 
-list.prepend(10)
-list.prepend(20)
-list.prepend(30)
-list.prepend(40)
+list.prepend(100)
 list.prepend(50)
+list.prepend(30)
+list.prepend(70)
+list.prepend(20)
 // list.reverse()
 // list.mid()
 // list.delete(30)
@@ -140,5 +158,5 @@ list.prepend(50)
 // list1.prepend(40)
 // list1.prepend(50)
 // list.merge(list1)
-list.sum()
+list.bubbleSort()
 console.log(JSON.stringify(list.head))
