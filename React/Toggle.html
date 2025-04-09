@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="toggle" >block</button>
+
+    <script>
+        
+        document.addEventListener('contextmenu',(e)=>e.preventDefault())
+
+        let button=document.getElementById('toggle')
+        button.addEventListener('click',()=>{
+            if(button.innerHTML=='block'){
+                button.innerHTML='unblock'
+            }else{
+                button.innerHTML='block'
+            }
+        })
+    </script>
+</body>
+</html>
