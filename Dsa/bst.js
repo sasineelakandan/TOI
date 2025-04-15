@@ -1,188 +1,218 @@
 class Node{
+
     constructor(val){
-        this.val=val
-       this.left=null
-       this.right=null
+      this.val=val
+      this.left=null
+      this.right=null
     }
-}
-
-
-class Bst{
+  }
+  
+  
+  class Bst{
+   
     constructor(){
-        this.root=null
+      this.root=null
+  
     }
-
-
+  
     insert(val){
-        let node=new Node(val)
-        if(this.root==null){
-            this.root=node
-            return 
-        }else{
-            let curr=this.root
-            while(true){
-                if(curr.val>val){
-                   if(curr.left==null){
-                    curr.left=node
-                    return 
-                }else{
-                    curr=curr.left
-                   }
-                }else{
-                    if(curr.right==null){
-                        curr.right=node
-                        return 
-                    }else{
-                        curr=curr.right
-                       }
-
-                }
-
-            }
-        }
-    }
-    dfs(){
+       let node= new Node(val)
+      if(this.root==null){
+        this.root=node
+         return
+      }else{
         let curr=this.root
-        let data=[]
-        function travisol(node){
-          data.push(node.val)
-          if(node.left)travisol(node.left)
-            if(node.right)travisol(node.right)
-        }
-        travisol(curr)
-
-        return data
-    }
-
-    bfs(){
-        
-        let data=[]
-        let queue=[this.root]
-        while(queue.length){
-          let node=queue.shift()
-          data.push(node.val)
-          if(node.left)queue.push(node.left)
-          if(node.right)queue.push(node.right)
-        }
-
-        return data
-    }
-
-    hightOfnode(node=this.root){
-      
-        if(node==null){
-            return 0
-        }
-
-        let leftNode= this.hightOfnode(node.left)
-        let rightNode= this.hightOfnode(node.right)
-
-        return 1+Math.max(leftNode,rightNode)
-    }
-
-    balancetree(node){
-      
-        if(node==null){
-            return true
-        }
-
-        let leftNode= this.hightOfnode(node.left)
-        let rightNode= this.hightOfnode(node.right)
-
-        if(Math.abs(leftNode-rightNode)>1){
-            return false
-        }
-
-       return this.balancetree(node.left)&&this.balancetree(node.right)
-    }
-
-    deleteNode(val,node){
-        if(node==null){
-            return null
-        }
-
-        if(node.val>val){
-            node.left= this.deleteNode(val,node.left)
-        }else if(node.val<val){
-            node.right= this.deleteNode(val,node.right)
-        }else{
-
-            if(!node.left&&!node.right){
-                return null
+        while(true){
+          if(curr.val>val){
+            if(curr.left==null){
+              curr.left=node
+              return
+            }else{
+              curr=curr.left
             }
-
-            if(!node.left)return node.right
-            if(!node.right)return node.left
-
-
-            let minode=this.getminNode(node.right)
-            node.val=minode.val
-            node.right=this.deleteNode(minode.val,node.right)
-        }
-
-        return node
-    }
-
-    getminNode(node){
-        while(node.left){
-            node=node.left
-        }
-        return node
-    }
-
-    findlargest(k) {
-        let count = 0;
-        let res = null;
-        let curr = this.root;
-    
-        function travisol(node) {
-            if (!node || count >= k) return;
-    
-            travisol(node.right);
+           
+          }else{
             
-            count++;
-            if (count === k) {
-                res = node;
-                return;
+            if(curr.right==null){
+              curr.right=node
+              return
+            }else{
+              curr=curr.right
             }
-    
-            travisol(node.left);
+          }
         }
-    
-        travisol(curr);
-        return res;
+      }
+  
     }
-
-    countLeafNode(node=this.root){
-       if(!node)return 0
-
-       if(!node.left&&!node.right)return 1
-
-       return this.countLeafNode(node.left)+this.countLeafNode(node.right)
-
+    
+    hightOf(node=this.root){
+      if(!node)return 0
+      
+      const leftNode=this.hightOf(node.left)
+  
+      const rightNode=this.hightOf(node.right)
+  
+      return 1+Math.max(leftNode,rightNode)
+  
+    }
+  
+    isBalance(node=this.root){
+      
+      if(!node)return true
+      
+      const leftNode=this.hightOf(node.left)
+  
+      const rightNode=this.hightOf(node.right)
+  
+      if(Math.abs(leftNode-rightNode)>1){
+        return false
+      }
+      
+      return this.isBalance(node.left)&&this.isBalance(node.right)
+  
+    }
+  
+    bfs(){
+      let data=[]
+      let queue=[this.root]
+      while(queue.length){
+        let node=queue.shift()
+        data.push(node.val)
+        if(node.left){
+          queue.push(node.left)
+        }
+        if(node.right){
+          queue.push(node.right)
+        }
+      }
+      return data
+    }
+  
+    dfs(){
+      let data=[]
+      let curr=this.root
+      function travisol(node){
+        data.push(node.val)
+        if(node.left)travisol(node.left)
+        if(node.right)travisol(node.right)
+      }
+     travisol(curr)
+  
+     return data
+    }
+  
+    noofleafNode(node=this.root){
+      if(!node)return 0
+      
+      if(!node.left&&!node.right) return 1
+    
+      return this.noofleafNode(node.left)+this.noofleafNode(node.right)
+      
+    }
+  
+    nocountsingle(node=this.root){
+      if(!node)return 0
+      let count=0
+      if((!node.left&&node.right)||(!node.right&&node.left)){
+        count=1
+      }
+    
+      return count+this.nocountsingle(node.left)+this.nocountsingle(node.right)
+  
+    }
+  
+    findLargest(k){
+      let count=0
+      let curr=this.root
+       let res=0
+      function travisol(node){
+        if(!node) return
+         
+        if(node.right)travisol(node.right)
+          count++
+          if(count==k){
+            res=node.val
+            return
+          }
+        if(node.left)travisol(node.left)
+          
+      }
+     travisol(curr)
+  
+     return res
+    }
+  
+    nodeDelete(val,node){
+  
+      if(!node)return null
+  
+     
+  
+      if(node.val>val){
+        node.left=this.nodeDelete(val,node.left)
+      }else if(node.val<val){
+        node.right=this.nodeDelete(val,node.right)
+      }else{
+        if(!node.left) return node.right
+        if(!node.right) return node.left
+  
+        let minNode=this.getMinode(node.rigth)
+         node.val=minNode.val
+         node.right=this.nodeDelete(minNode.val,node.right)
+      }
+  
+  
+      return node
+  
+      
+        
+      
        
     }
-
-    countNode(node=this.root){
-        if(!node)return 0
-       let count=0
-       if((node.left&&!node.right)||(node.right&&!node.left)){
-        count=1
-       }
-
-       return count+ this.countNode(node.left)+this.countNode(node.right) 
+  
+    getMinode(node){
+      while(node.left){
+        node=node.left
+      }
+      return node
     }
-}
-
-
-let bst=new Bst()
-
-bst.insert(10)
-bst.insert(20)
-bst.insert(30)
-bst.insert(40)
-bst.insert(50)
-let node=bst.findlargest(5)
-console.log(bst.countNode())
-// bst.deleteNode(10,bst.root)
-// console.log(JSON.stringify(bst.root))
+  
+    findNode(val){
+      let curr=this.root
+       while(curr){
+        if(curr.val==val){
+          return curr
+        }
+        if(curr.val>val){
+          curr=curr.left
+        }else{
+          curr=curr.right
+        }
+       }
+    }
+  
+    degeree(node=this.root){
+      if(!node)return 
+      let degeree=0
+      if(node.left)degeree++
+      if(node.right)degeree++
+      return degeree
+    }
+  }
+  
+  
+  const bst= new Bst()
+  
+  bst.insert(10)
+  bst.insert(20)
+  bst.insert(30)
+  bst.insert(40)
+  bst.insert(50)
+  console.log(bst.hightOf())
+  console.log(bst.isBalance())
+  console.log(bst.dfs())
+  
+  console.log(bst.degeree())
+  
+  console.log(JSON.stringify(bst.root))
+  
