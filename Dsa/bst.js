@@ -212,7 +212,7 @@ class Node{
   console.log(bst.isBalance())
   console.log(bst.dfs())
   
-  console.log(bst.degeree())
+  console.log(bst.findLargest(3))
   
   console.log(JSON.stringify(bst.root))
   
