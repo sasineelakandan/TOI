@@ -1,18 +1,14 @@
 import express from 'express'
 import fs from 'fs'
 const app=express()
+const router=express.Router()
 
 app.get('/',(req,res)=>{
     try{
         
        
          
-           if( fs.existsSync('file.txt')){
-            console.log ('hai')
-            fs.appendFileSync('file.txt',`${new Date()}\n`)
-           }else{
-            fs.writeFileSync('file.txt',`${new Date()}`)
-           }
+          
            
         res.send('hello world')
     
@@ -21,6 +17,17 @@ app.get('/',(req,res)=>{
     }
 })
 
+router.get('/user',(req,res)=>{
+    try{
+        
+        res.send('from router')
+
+    }catch(err){
+        console.log(err)
+    }
+})
+
+app.use('/api',router)
 
 app.listen(8000,()=>{
     console.log('server start')
